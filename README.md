@@ -6,26 +6,26 @@ mínimima e máxima do dia da requisão, pegando o local mais próximo de onde f
 Serviços
 ================================================
 
-<url>/cliente/listar
+[url]/cliente/listar
 --------------------------------------------------------------------------------------------------
 Método GET que recupera toda a lista de clientes cadastrados no sitema.
 
-<url>/cliente/obter/{id}
+[url]/cliente/obter/{id}
 --------------------------------------------------------------------------------------------------
 Método GET que recupera o cliente fornecendo o ID como parâmetro por URI.
 
-<url>/cliente/salvar/{nome}/{idade}
+[url]/cliente/salvar/{nome}/{idade}
 --------------------------------------------------------------------------------------------------
 Método GET que salva o cliente no sistema fornecendo nome e idade como parâmetros por URI.
 Junto com retorno deste serviço, vai o IP de quem requisitou o serviço para poder pegar localização e armazenar no sistema
 vinculando ao cliente cadastrado.
 
-<url>/cliente/atualizar/{nome}/{idade}/{id}
+[url]/cliente/atualizar/{nome}/{idade}/{id}
 --------------------------------------------------------------------------------------------------
 Método GET que atualiza as informaçãos de nome e idade que são fornecidos como parâmetros pro URI. Também é forne-
 cido o ID como parâmetro para localizar o cliente a ser alterado.
 
-<url>/cliente/excluir/{id}
+[url]/cliente/excluir/{id}
 --------------------------------------------------------------------------------------------------
 Método GET que exclui um cliente conforme o ID fornecido como parâmetro por URI.
 
