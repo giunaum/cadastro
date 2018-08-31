@@ -65,6 +65,8 @@ Postman e Heroku
 --------------------------------------------------------------------------------------------------
 Como citado nas ferramentas usadas no teste durante o desenvolvimento, pode ser utilizado a aplicação Postman e o site
 Heroku para testar o webservice.
+Para teste no Heroku com serviço já disponiblizado no desenvolvimento, segue o link:
+https://ws-cadastro.herokuapp.com + o endereço do serviço.
 
 Arquivo JAR
 --------------------------------------------------------------------------------------------------
