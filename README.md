@@ -22,7 +22,7 @@ vinculando ao cliente cadastrado.
 
 [url]/cliente/atualizar/{nome}/{idade}/{id}
 --------------------------------------------------------------------------------------------------
-Método GET que atualiza as informaçãos de nome e idade que são fornecidos como parâmetros pro URI. Também é forne-
+Método GET que atualiza as informaçãos de nome e idade que são fornecidos como parâmetros por URI. Também é forne-
 cido o ID como parâmetro para localizar o cliente a ser alterado.
 
 [url]/cliente/excluir/{id}
@@ -50,29 +50,29 @@ poder pegar o a localização do requisitante e fazer os testes do funcionamento
 Infraestrutura e Instruções
 ================================================
 
-Postgres
+Banco de Dados
 --------------------------------------------------------------------------------------------------
-É preciso ter instalado o Postgres no servidor que vai ser rodado a aplicação e criar o banco chamado 'cadastro'. As tabelas
-serão criadas automáticamentes ao rodar a aplicação.
+O SGBD (Sistema de Gerenciamento de Banco de Dados) utilizado neste projeto é o Postgres. É preciso instalar o Postgres
+no servidor que vai ser rodado a aplicação e criar o banco de dados chamado 'cadastro' ou outro de acordo com a configu-
+ração do arquivo de configuração 'application.properties' que fica dentro de 'resources'. As tabelas serão criadas automáti-
+camentes ao rodar a aplicação.
 
-Maven
+Gerar a Aplicação
 --------------------------------------------------------------------------------------------------
-Para compilar o projeto e pegar o arquivo jar é necessário o usar o maven, utilizando o comando 'mvn install' no terminal ou
-execultar o comando diretamente na ide. Mas caso seje necessário, altere antes as configurações do banco de dados no
-arquivo  chamado 'application.properties' que fica dentro de 'resources'.
+Para gerar a aplicação é preciso compilar o projeto pelo maven e pegar o arquivo jar. Para compilar, utilize o comando
+'mvn install' no terminal ou execultar o comando install diretamente na ide. Mas caso seje necessário, altere antes as confi-
+gurações do banco de dados no arquivo 'application.properties'.
 
-Postman e Heroku
+Executar a Aplicação
+--------------------------------------------------------------------------------------------------
+Para rodar a aplicação em um ambiente de homologação ou produção, execute o seguinte comando no terminal
+'java -jar cadastro-1.0-SNAPSHOT.jar'.
+Para acessar, utilize o host e porta na url e o serviço desejado como descrito em 'Serviços'.
+Uma outra alternativa é utilizar Jenkins e configurar para rodar ao ser feito o deploy do projeto.
+
+Teste
 --------------------------------------------------------------------------------------------------
 Como citado nas ferramentas usadas no teste durante o desenvolvimento, pode ser utilizado a aplicação Postman e o site
 Heroku para testar o webservice.
 Para teste no Heroku com serviço já disponiblizado no desenvolvimento, segue o link:
 https://ws-cadastro.herokuapp.com + o endereço do serviço.
-
-Arquivo JAR
---------------------------------------------------------------------------------------------------
-Para rodar a aplicação em ambiente de produção, execute o comando 'java -jar cadastro-1.0-SNAPSHOT.jar' no terminal.
-Para acessar, utilize o host e porta na url e o serviço desejado como descrito em 'Serviços'.
-
-Jenkins
---------------------------------------------------------------------------------------------------
-Uma alternativa seria configurar o Jenkins para rodar o serviço no deploy.
