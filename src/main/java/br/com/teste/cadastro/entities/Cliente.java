@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Cliente implements Entidade {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Integer id;
 
 	@Column(length = 100, nullable = false)

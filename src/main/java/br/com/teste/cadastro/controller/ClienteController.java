@@ -20,7 +20,7 @@ import java.util.List;
 public class ClienteController implements Serializable {
 
 	@Autowired
-	private ClienteFacade clientebusiness;
+	private ClienteFacade clienteFacade;
 
 	/**
 	 * Recupera os clientes.
@@ -31,7 +31,7 @@ public class ClienteController implements Serializable {
 	@GetMapping(value = "/listar")
 	@ResponseBody
 	public List<ClienteTO> getClientes() throws ClienteFacadeException {
-		return clientebusiness.getClientes();
+		return clienteFacade.getClientes();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class ClienteController implements Serializable {
 	@GetMapping(value = "/obter/{id}")
 	@ResponseBody
 	public ClienteTO getClienteById(@PathVariable Integer id) throws ClienteFacadeException {
-		return clientebusiness.getClienteById(id);
+		return clienteFacade.getClienteById(id);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class ClienteController implements Serializable {
 	@GetMapping(value = "/salvar/{nome}/{idade}")
 	@ResponseBody
 	public String salvarCliente(@PathVariable String nome, @PathVariable Integer idade, HttpServletRequest request) throws ClienteFacadeException {
-		return clientebusiness.salvarCliente(nome, idade, request.getRemoteAddr());
+		return clienteFacade.salvarCliente(nome, idade, request.getRemoteAddr());
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class ClienteController implements Serializable {
 	@GetMapping(value = "/atualizar/{nome}/{idade}/{id}")
 	@ResponseBody
 	public String alterarliente(@PathVariable String nome, @PathVariable Integer idade, @PathVariable Integer id) throws ClienteFacadeException {
-		return clientebusiness.atualizarCliente(nome, idade, id);
+		return clienteFacade.atualizarCliente(nome, idade, id);
 	}
 
 	/**
@@ -85,6 +85,6 @@ public class ClienteController implements Serializable {
 	@GetMapping(value = "/excluir/{id}")
 	@ResponseBody
 	public String excluirCliente(@PathVariable Integer id) throws ClienteFacadeException {
-		return clientebusiness.excluirCliente(id);
+		return clienteFacade.excluirCliente(id);
 	}
 }
