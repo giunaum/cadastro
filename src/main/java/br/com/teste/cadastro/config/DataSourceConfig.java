@@ -1,6 +1,7 @@
 package br.com.teste.cadastro.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -14,11 +15,12 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Classe de configuração do Hibernate.
+ * Classe de configuração do DataSource.
  */
 @Configuration
 @EnableTransactionManagement
-public class Hibernate {
+@ConfigurationProperties("basic")
+public class DataSourceConfig {
 
 	@Value("${db.driver}")
 	private String DB_DRIVER;

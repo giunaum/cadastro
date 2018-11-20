@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
  * Classe de configuração do Client Service.
  */
 @Configuration
-public class ClientService {
+public class ClientServiceConfig {
 
 	@Value("${read.timeout}")
 	private int READ_TIMEOUT;
