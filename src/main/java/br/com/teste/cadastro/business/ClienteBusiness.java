@@ -1,5 +1,7 @@
 package br.com.teste.cadastro.business;
 
+import br.com.teste.cadastro.config.MessageCode;
+import br.com.teste.cadastro.config.MessageConfig;
 import br.com.teste.cadastro.entities.Cliente;
 import br.com.teste.cadastro.entities.GeoLocalizacao;
 import br.com.teste.cadastro.exceptions.ClienteBusinessException;
@@ -39,13 +41,13 @@ public class ClienteBusiness {
 		try {
 			clientes.addAll(clienteDAO.getAll());
 		} catch (DAOException e) {
-			String msg = "Erro ao recuperar os clientes.";
+			String msg = MessageConfig.getMensagem(MessageCode.FALHA_RECUPERAR_CLIENTES);
 			logger.error(msg, e);
 			throw new ClienteBusinessException(msg, e);
 		}
 
 		if (Util.isEmpty(clientes)) {
-			throw new ClienteBusinessException("Os Clientes não foram encontrados.");
+			throw new ClienteBusinessException(MessageCode.CLIENTES_NAO_ENCONTRADOS);
 		}
 
 		return clientes;
@@ -68,13 +70,13 @@ public class ClienteBusiness {
 		try {
 			cliente = clienteDAO.getById(id);
 		} catch (DAOException e) {
-			String msg = "Erro ao recuperar o cliente.";
+			String msg = MessageConfig.getMensagem(MessageCode.FALHA_RECUPERAR_CLIENTE);
 			logger.error(msg, e);
 			throw new ClienteBusinessException(msg, e);
 		}
 
 		if (cliente == null) {
-			throw new ClienteBusinessException("Cliente não encontrado pelo ID.");
+			throw new ClienteBusinessException(MessageCode.CLIENTE_NAO_ENCONTRADO);
 		}
 
 		return cliente;
@@ -131,8 +133,7 @@ public class ClienteBusiness {
 		}
 
 		if (!Util.isEmpty(parametros)) {
-			String mensagem = "Os seguintes parametros obrigatórios não foram preenchidos: {0}.";
-			throw new ClienteBusinessException(Util.formatarString(true, mensagem, (String[]) parametros.toArray()));
+			throw new ClienteBusinessException(MessageCode.PARAMETROS_OBRIGATORIOS, parametros);
 		}
 
 		boolean isPersistido = !Util.isEmpty(id) && id > BigInteger.ZERO.intValue();
@@ -142,17 +143,17 @@ public class ClienteBusiness {
 		try {
 			clientePersistido = clienteDAO.persistir(cliente);
 		} catch (DAOException e) {
-			String msg = isPersistido ? "Erro ao atualizar o cliente." : "Erro ao salvar o cliente.";
+			String msg = MessageConfig.getMensagem(isPersistido ? MessageCode.FALHA_ALTERAR_CLIENTE : MessageCode.FALHA_SALVAR_CLIENTE);
 			logger.error(msg, e);
 			throw new ClienteBusinessException(msg, e);
 		}
 
 		StringBuilder mensagem = new StringBuilder();
 		if (clientePersistido == null) {
-			throw new ClienteBusinessException(isPersistido ? "Cliente não atualizado." : "Cliente não salvo.");
+			throw new ClienteBusinessException(isPersistido ? MessageCode.CLIENTE_NAO_ATUALIZADO : MessageCode.CLIENTE_NAO_SALVO);
 		} else {
-			mensagem.append(isPersistido ? "Cliente atualizado com sucesso! [ID: " : "Cliente salvo com sucesso! [ID: ");
-			mensagem.append(cliente.getId().toString()).append("]");
+			mensagem.append(MessageConfig.getMensagem(isPersistido ? MessageCode.SUCESSO_ALTERAR_CLIENTE : MessageCode.SUCESSO_SALVAR_CLIENTE));
+			mensagem.append(" [ID: ").append(cliente.getId().toString()).append("]");
 		}
 
 		return mensagem.toString();
@@ -166,18 +167,18 @@ public class ClienteBusiness {
 	 */
 	public String excluirCliente(final Cliente cliente) throws ClienteBusinessException {
 		if (cliente == null) {
-			throw new ClienteBusinessException("Cliente não fornecido. Impossível prosseguir");
+			throw new ClienteBusinessException(MessageCode.CLIENTE_NAO_FORNECIDO);
 		}
 
 		try {
 			clienteDAO.excluir(cliente);
 		} catch (DAOException e) {
-			String msg = "Erro ao excluir o cliente.";
+			String msg = MessageConfig.getMensagem(MessageCode.FALHA_EXCLUIR_CLIENTE);
 			logger.error(msg, e);
 			throw new ClienteBusinessException(msg, e);
 		}
 
-		return "Cliente excluído com sucesso!";
+		return MessageConfig.getMensagem(MessageCode.SUCESSO_EXCLUIR_CLIENTE);
 	}
 
 	/**

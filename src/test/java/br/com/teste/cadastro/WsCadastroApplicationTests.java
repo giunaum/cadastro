@@ -1,5 +1,7 @@
 package br.com.teste.cadastro;
 
+import br.com.teste.cadastro.config.MessageCode;
+import br.com.teste.cadastro.config.MessageConfig;
 import br.com.teste.cadastro.exceptions.ClienteFacadeException;
 import br.com.teste.cadastro.facade.ClienteFacade;
 import br.com.teste.cadastro.to.ClienteTO;
@@ -22,21 +24,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @FixMethodOrder(value = MethodSorters.JVM)
 public class WsCadastroApplicationTests {
 
-	private static final Integer ID = 2;
+	private static final String REGEX_NUMBER = "[^0-9]";
 
 	@Autowired
 	private ClienteFacade clienteFacade;
 
 	@Test
 	public void salvarCliente() throws ClienteFacadeException {
-		String msg = clienteFacade.salvarCliente("Teste", 25, "177.92.230.54");
-		assertTrue(msg.contains("Cliente salvo com sucesso!"));
+		String msg = clienteFacade.salvarCliente("TesteSalvar", 25, "177.92.230.54");
+		assertTrue(msg.contains(MessageConfig.getMensagem(MessageCode.SUCESSO_SALVAR_CLIENTE)));
 	}
 
 	@Test
 	public void alterarliente() throws ClienteFacadeException {
-		String msg = clienteFacade.atualizarCliente("TesteAlterado", 26, ID);
-		assertTrue(msg.contains("Cliente atualizado com sucesso!"));
+		String msgSalvar = clienteFacade.salvarCliente("TesteAlterar", 27, "177.92.230.54");
+		assertTrue(msgSalvar.contains(MessageConfig.getMensagem(MessageCode.SUCESSO_SALVAR_CLIENTE)));
+
+		Integer id = Integer.parseInt(msgSalvar.replaceAll(REGEX_NUMBER, ""));
+
+		String msgAlterar = clienteFacade.atualizarCliente("TesteAlterado", 26, id);
+		assertTrue(msgAlterar.contains(MessageConfig.getMensagem(MessageCode.SUCESSO_ALTERAR_CLIENTE)));
 	}
 
 	@Test
@@ -47,13 +54,23 @@ public class WsCadastroApplicationTests {
 
 	@Test
 	public void getClienteById() throws ClienteFacadeException {
-		ClienteTO clienteTO = clienteFacade.getClienteById(ID);
+		String msgSalvar = clienteFacade.salvarCliente("TesteConsultar", 28, "177.92.230.54");
+		assertTrue(msgSalvar.contains(MessageConfig.getMensagem(MessageCode.SUCESSO_SALVAR_CLIENTE)));
+
+		Integer id = Integer.parseInt(msgSalvar.replaceAll(REGEX_NUMBER, ""));
+
+		ClienteTO clienteTO = clienteFacade.getClienteById(id);
 		assertNotNull(clienteTO);
 	}
 
 	@Test
 	public void excluirCliente() throws ClienteFacadeException {
-		String msg = clienteFacade.excluirCliente(ID);
-		assertTrue(msg.contains("Cliente excluído com sucesso!"));
+		String msgSalvar = clienteFacade.salvarCliente("TesteExcluir", 29, "177.92.230.54");
+		assertTrue(msgSalvar.contains(MessageConfig.getMensagem(MessageCode.SUCESSO_SALVAR_CLIENTE)));
+
+		Integer id = Integer.parseInt(msgSalvar.replaceAll(REGEX_NUMBER, ""));
+
+		String msgExcluir = clienteFacade.excluirCliente(id);
+		assertTrue(msgExcluir.contains(MessageConfig.getMensagem(MessageCode.SUCESSO_EXCLUIR_CLIENTE)));
 	}
 }
