@@ -48,6 +48,9 @@ public class WsCadastroApplicationTests {
 
 	@Test
 	public void getClientes() throws ClienteFacadeException {
+		String msgClientes = clienteFacade.salvarCliente("TesteClientes", 30, "177.92.230.54");
+		assertTrue(msgClientes.contains(MessageConfig.getMensagem(MessageCode.SUCESSO_SALVAR_CLIENTE)));
+
 		List<ClienteTO> clientesTO = clienteFacade.getClientes();
 		assertTrue(!Util.isEmpty(clientesTO));
 	}
